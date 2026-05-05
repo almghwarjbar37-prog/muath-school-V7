@@ -3,121 +3,476 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>عن المدرسة — مدرسة الشهيد معاذ الكساسبة</title>
+<title>مدرسة الشهيد معاذ الكساسبة الثانوية</title>
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/styles.css">
 <style>
-.about-section{background:#fff;padding:80px 5%}
-.about-full-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:1200px;margin:0 auto 60px}
-.info-card{background:var(--cream);border-radius:20px;padding:32px;border:1px solid rgba(0,0,0,.07);margin-bottom:20px}
-.info-card h3{font-size:1.1rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.info-card p{color:var(--gray);line-height:1.9;font-size:.95rem}
-.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1200px;margin:0 auto 60px}
-.value-card{background:#fff;border-radius:16px;padding:24px;border:1px solid rgba(0,0,0,.07);text-align:center;transition:all .3s}
-.value-card:hover{border-color:var(--green-mid);transform:translateY(-4px);box-shadow:0 15px 40px rgba(26,92,42,.1)}
-.value-icon{font-size:2.5rem;margin-bottom:12px}
-.value-title{font-weight:800;font-size:1rem;margin-bottom:6px}
-.value-desc{font-size:.82rem;color:var(--gray);line-height:1.6}
-.timeline{max-width:700px;margin:0 auto;position:relative}
-.timeline::before{content:'';position:absolute;right:20px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--green-mid),var(--gold))}
-.tl-item{display:flex;gap:24px;margin-bottom:32px;position:relative}
-.tl-dot{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-mid));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;flex-shrink:0;position:relative;z-index:1}
-.tl-content{background:#fff;border-radius:16px;padding:20px;flex:1;border:1px solid rgba(0,0,0,.07)}
-.tl-content h4{font-weight:700;margin-bottom:6px}
-.tl-content p{font-size:.85rem;color:var(--gray);line-height:1.6}
-@media(max-width:768px){.about-full-grid,.values-grid{grid-template-columns:1fr;gap:24px}}
+/* HOME SPECIFIC */
+#hero {
+  min-height:100vh;
+  background:linear-gradient(160deg,#0d1f12 0%,#1a4a28 40%,#0f2d1a 100%);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;padding-top:70px;
+}
+.hero-bg-pattern { position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(61,181,96,.08),transparent 50%),radial-gradient(circle at 80% 20%,rgba(201,148,26,.08),transparent 40%); }
+.hero-grid { position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px; }
+.hero-content { position:relative;z-index:2;max-width:800px;padding:2rem;animation:fadeUp 1s ease-out; }
+.hero-badge { display:inline-flex;align-items:center;gap:8px;background:rgba(201,148,26,.2);border:1px solid rgba(201,148,26,.4);color:var(--gold-light);padding:6px 18px;border-radius:50px;font-size:.85rem;margin-bottom:24px;font-weight:500; }
+.hero-title { font-family:'Amiri',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:#fff;line-height:1.4;margin-bottom:12px; }
+.hero-title .highlight { color:var(--gold-light);display:block; }
+.hero-subtitle { font-size:1rem;color:rgba(255,255,255,.6);margin-bottom:40px; }
+.hero-stats { display:flex;justify-content:center;gap:2rem;margin-bottom:40px;flex-wrap:wrap; }
+.stat-item { text-align:center; }
+.stat-num-hero { font-size:2rem;font-weight:900;color:var(--gold-light);display:block; }
+.stat-label { color:rgba(255,255,255,.6);font-size:.8rem; }
+.hero-btns { display:flex;gap:16px;justify-content:center;flex-wrap:wrap; }
+.particle { position:absolute;border-radius:50%;pointer-events:none;animation:floatUp linear infinite;z-index:1; }
+/* ABOUT STRIP */
+#about-strip { background:#fff;padding:80px 5%; }
+.about-grid { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto; }
+.about-text p { color:var(--gray);line-height:1.9;margin-bottom:16px;font-size:.98rem; }
+.about-features { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px; }
+.feature-card { background:var(--cream);border-radius:16px;padding:20px;border:1px solid rgba(26,92,42,.1);transition:all .3s; }
+.feature-card:hover { border-color:var(--green-mid);transform:translateY(-3px);box-shadow:0 10px 30px rgba(26,92,42,.1); }
+.feature-icon { font-size:1.8rem;margin-bottom:8px; }
+.feature-title { font-weight:700;font-size:.9rem;color:var(--dark);margin-bottom:4px; }
+.feature-desc { font-size:.78rem;color:var(--gray); }
+.about-visual { background:linear-gradient(135deg,var(--green) 0%,var(--green-mid) 100%);border-radius:24px;padding:40px;color:#fff;position:relative;overflow:hidden; }
+.about-visual h3 { font-family:'Amiri',serif;font-size:1.8rem;margin-bottom:20px;color:var(--gold-light); }
+.vm-item { background:rgba(255,255,255,.1);border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,.15);margin-bottom:16px; }
+.vm-item h4 { font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--gold-light);display:flex;align-items:center;gap:8px; }
+.vm-item p { font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.85); }
+/* TRACKS */
+#tracks { background:var(--cream); }
+.tracks-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1200px;margin:0 auto; }
+.track-card { background:#fff;border-radius:20px;padding:32px;border:1px solid rgba(0,0,0,.07);transition:all .4s;position:relative;overflow:hidden; }
+.track-card::before { content:'';position:absolute;top:0;right:0;width:100%;height:4px;background:linear-gradient(90deg,var(--green-mid),var(--gold)); }
+.track-card:hover { transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,.12); }
+.track-icon { width:60px;height:60px;background:linear-gradient(135deg,rgba(26,92,42,.1),rgba(61,181,96,.15));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:20px; }
+.track-card.it .track-icon { background:linear-gradient(135deg,rgba(201,148,26,.1),rgba(240,180,41,.15)); }
+.track-name { font-size:1.15rem;font-weight:800;color:var(--dark);margin-bottom:8px; }
+.track-desc { color:var(--gray);font-size:.88rem;line-height:1.7; }
+/* BTEC */
+#btec { background:linear-gradient(160deg,#0d1f12 0%,#1a3d22 100%);color:#fff;position:relative;overflow:hidden; }
+#btec::before { content:'IT';position:absolute;font-size:30vw;font-weight:900;color:rgba(255,255,255,.02);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none; }
+.btec-grid { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:1200px;margin:0 auto; }
+.unit-item { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;transition:all .3s;margin-bottom:12px; }
+.unit-item:hover { background:rgba(201,148,26,.1);border-color:rgba(201,148,26,.3);transform:translateX(-5px); }
+.unit-num { width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:var(--dark);flex-shrink:0; }
+.unit-info h4 { font-size:.95rem;font-weight:700;margin-bottom:2px;color:#fff; }
+.unit-info p { font-size:.78rem;color:rgba(255,255,255,.5); }
+.btec-achievements { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+.achievement-card { background:rgba(255,255,255,.06);border:1px solid rgba(201,148,26,.2);border-radius:18px;padding:24px;text-align:center;transition:all .3s; }
+.achievement-card:hover { background:rgba(201,148,26,.1);transform:scale(1.03); }
+.achievement-label { font-size:.82rem;color:rgba(255,255,255,.6);margin-top:4px; }
+/* NEWS PREVIEW */
+#news-preview { background:#fff; }
+/* GALLERY */
+#gallery { background:var(--cream); }
+.gallery-grid { display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,200px);gap:16px;max-width:1200px;margin:0 auto;border-radius:24px;overflow:hidden; }
+.gallery-item { border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:all .4s; }
+.gallery-item:first-child { grid-row:span 2; }
+.gallery-item:hover { opacity:.9;transform:scale(.99); }
+.gallery-inner { width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#fff;position:relative; }
+.g1{background:linear-gradient(135deg,#1a5c2a,#2d8a45)} .g2{background:linear-gradient(135deg,#c9941a,#f0b429)} .g3{background:linear-gradient(135deg,#1a5c4a,#2d8a70)} .g4{background:linear-gradient(135deg,#5c1a1a,#8a2d2d)} .g5{background:linear-gradient(135deg,#1a1a5c,#2d2d8a)}
+.gallery-label { position:absolute;bottom:0;right:0;left:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);padding:12px 16px 14px;font-size:.82rem;font-weight:600;color:#fff; }
+/* STAFF */
+.staff-admin { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1200px;margin:0 auto; }
+.staff-card { background:var(--cream);border-radius:20px;padding:28px 20px;text-align:center;border:1px solid rgba(0,0,0,.07);transition:all .3s; }
+.staff-card:hover { border-color:var(--green-light);transform:translateY(-5px);box-shadow:0 15px 40px rgba(26,92,42,.1); }
+.staff-avatar { width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 14px;background:linear-gradient(135deg,var(--green),var(--green-mid)); }
+.staff-card.btec .staff-avatar { background:linear-gradient(135deg,var(--gold),var(--gold-light)); }
+.staff-card.admin-card .staff-avatar { background:linear-gradient(135deg,#1a3a5c,#2d6a9a); }
+.staff-name { font-weight:800;font-size:1rem;color:var(--dark);margin-bottom:4px; }
+.staff-role { font-size:.78rem;color:var(--gray);font-weight:500; }
+.staff-sub-title { font-size:1.15rem;font-weight:800;color:var(--dark);margin-bottom:20px;display:flex;align-items:center;gap:10px;max-width:1200px;margin-left:auto;margin-right:auto; }
+.staff-sub-title::after { content:'';flex:1;height:2px;background:linear-gradient(90deg,rgba(26,92,42,.2),transparent);border-radius:2px; }
+
+@media(max-width:768px){
+  .about-grid,.btec-grid { grid-template-columns:1fr;gap:30px; }
+  .about-features { grid-template-columns:1fr 1fr; }
+  .btec-achievements { grid-template-columns:1fr 1fr; }
+  .gallery-grid { grid-template-columns:1fr 1fr;grid-template-rows:auto; }
+  .gallery-item:first-child { grid-row:span 1;grid-column:span 2;height:200px; }
+}
+@media(max-width:480px){ .gallery-grid{grid-template-columns:1fr} .gallery-item:first-child{grid-column:span 1} }
 </style>
 </head>
 <body>
+
+<!-- NAVBAR -->
 <nav>
-  <a href="/" class="nav-logo"><img src="/images/school-logo.jpg" class="logo-img-small" alt="شعار المدرسة"><div class="logo-text">مدرسة الشهيد معاذ الكساسبة<span>الثانوية للبنين | BTEC IT</span></div></a>
+  <a href="/" class="nav-logo">
+    <img src="/images/school-logo.jpg" class="logo-img-small" alt="شعار المدرسة">
+    <div class="logo-text">مدرسة الشهيد معاذ الكساسبة<span>الثانوية للبنين | BTEC IT</span></div>
+  </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li><li><a href="/#tracks">المسارات</a></li><li><a href="/#staff">الكادر</a></li><li><a href="/contact">تواصل معنا</a></li>
+    <li><a href="/">الرئيسية</a></li>
+    <li><a href="/about">عن المدرسة</a></li>
+    <li><a href="/news">الأخبار</a></li>
+    <li><a href="#tracks">المسارات</a></li>
+    <li><a href="#staff">الكادر</a></li>
+    <li><a href="/contact">تواصل معنا</a></li>
   </ul>
   <div class="nav-auth" id="navAuth"></div>
   <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
 </nav>
 
-<div class="page-hero">
-  <h1>عن <span>المدرسة</span></h1>
-  <p>تعرف على تاريخنا ورؤيتنا وقيمنا</p>
-  <div class="breadcrumb"><a href="/">الرئيسية</a><span>›</span><span>عن المدرسة</span></div>
-</div>
-
-<section class="about-section">
-  <div class="about-full-grid">
-    <div class="reveal">
-      <div class="info-card">
-        <h3>🏫 نبذة عن المدرسة</h3>
-        <p>مدرسة الشهيد الطيار معاذ الكساسبة الثانوية للبنين مؤسسة تعليمية أردنية رائدة تحمل اسم البطل الشهيد الطيار معاذ الكساسبة رحمه الله، وتسعى إلى تكريم ذكراه من خلال تقديم أفضل الخدمات التعليمية.</p>
-        <br>
-        <p>تقدم المدرسة التعليم لمرحلة الأساس والثانوية للطلاب الذكور، وتتميز بامتلاكها مسارين رئيسيين: المسار الأكاديمي (علمي وأدبي) والمسار المهني في تكنولوجيا المعلومات بموجب برنامج BTEC الدولي المعتمد من Pearson Edexcel.</p>
-      </div>
-      <div class="info-card">
-        <h3>📍 الموقع والتواصل</h3>
-        <p>📌 المملكة الأردنية الهاشمية — محافظة الكرك<br>
-        📞 <a href="tel:+96232365301" style="color:var(--green-mid);font-weight:600">+962-3-2365301</a><br>
-        📧 <a href="mailto:aiyschool1@gmail.com" style="color:var(--green-mid);font-weight:600">aiyschool1@gmail.com</a><br>
-        📘 <a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" style="color:var(--green-mid);font-weight:600">صفحة فيسبوك المدرسة</a><br>
-        ⏰ الأحد — الخميس: 7:30ص — 2:30م</p>
-      </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🕊️ &nbsp; نحيي ذكراه بالعلم والإبداع &nbsp;•&nbsp; أهلاً وسهلاً بكم في موقعنا</div>
+    <h1 class="hero-title">
+      مدرسة الشهيد الطيار
+      <span class="highlight">معاذ الكساسبة</span>
+      الثانوية للبنين
+    </h1>
+    <p class="hero-subtitle">قسم تكنولوجيا المعلومات BTEC — نبني قادة المستقبل الرقمي</p>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num-hero" data-count="7" data-count-target>7</span><span class="stat-label">مسارات دراسية</span></div>
+      <div class="stat-item"><span class="stat-num-hero" data-count="500" data-prefix="+" data-count-target>+500</span><span class="stat-label">طالب متميز</span></div>
+      <div class="stat-item"><span class="stat-num-hero">BTEC</span><span class="stat-label">اعتماد دولي</span></div>
+      <div class="stat-item"><span class="stat-num-hero" data-count="20" data-prefix="+" data-count-target>+20</span><span class="stat-label">عاماً من التميز</span></div>
     </div>
-    <div class="reveal">
-      <div class="info-card" style="background:linear-gradient(135deg,var(--green),var(--green-mid));color:#fff;border:none">
-        <h3 style="color:var(--gold-light)">👁️ رؤيتنا</h3>
-        <p style="color:rgba(255,255,255,.9)">أن نكون مدرسة رائدة ومرجعاً تربوياً وتقنياً على المستوى الوطني، تُخرّج كفاءات مؤهلة لقيادة التحول الرقمي وتنمية المجتمع الأردني.</p>
-      </div>
-      <div class="info-card" style="background:linear-gradient(135deg,#1a3d22,#2d6a3a);color:#fff;border:none">
-        <h3 style="color:var(--gold-light)">🎯 رسالتنا</h3>
-        <p style="color:rgba(255,255,255,.9)">تقديم تعليم أكاديمي ومهني متميز في بيئة تعليمية محفزة وآمنة، تبني شخصية الطالب وتنمي مهاراته الرقمية والإبداعية استعداداً لتحديات المستقبل.</p>
-      </div>
-      <div class="info-card" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--dark);border:none">
-        <h3>💎 أهدافنا</h3>
-        <p>رفع مستوى التحصيل الأكاديمي • تطوير مهارات القرن الواحد والعشرين • تعزيز الهوية الوطنية • تأهيل الطلاب لسوق العمل والجامعات</p>
-      </div>
+    <div class="hero-btns">
+      <a href="/contact" class="btn btn-primary">سجّل الآن ←</a>
+      <a href="#btec" class="btn btn-outline">اكتشف قسم IT</a>
     </div>
-  </div>
-
-  <!-- VALUES -->
-  <div class="section-header reveal">
-    <div class="section-tag">💎 قيمنا</div>
-    <h2 class="section-title">القيم التي <span class="accent">نؤمن بها</span></h2>
-    <div class="divider"></div>
-  </div>
-  <div class="values-grid">
-    <div class="value-card reveal"><div class="value-icon">🏆</div><div class="value-title">التميز والإبداع</div><div class="value-desc">نسعى دائماً لتجاوز المعايير وتحقيق أعلى مستويات الإنجاز في كل ما نقوم به.</div></div>
-    <div class="value-card reveal"><div class="value-icon">🤝</div><div class="value-title">النزاهة والمسؤولية</div><div class="value-desc">نلتزم بالشفافية والصدق ونتحمل مسؤولية أفعالنا وقراراتنا.</div></div>
-    <div class="value-card reveal"><div class="value-icon">🌱</div><div class="value-title">التعاون والانتماء</div><div class="value-desc">نبني بيئة قائمة على العمل الجماعي والانتماء للوطن والمجتمع.</div></div>
-    <div class="value-card reveal"><div class="value-icon">🚀</div><div class="value-title">الابتكار والتطوير</div><div class="value-desc">نشجع التفكير الإبداعي ونتبنى حلولاً مبتكرة في التعليم والتعلم.</div></div>
-    <div class="value-card reveal"><div class="value-icon">🕊️</div><div class="value-title">الاحترام والتسامح</div><div class="value-desc">نحترم الآخر ونقدّر التنوع في بيئة تعليمية آمنة وداعمة.</div></div>
-    <div class="value-card reveal"><div class="value-icon">📚</div><div class="value-title">التعلم المستمر</div><div class="value-desc">نؤمن بأن التعلم رحلة مستمرة لا تنتهي عند حدود الصف الدراسي.</div></div>
-  </div>
-
-  <!-- TIMELINE -->
-  <div class="section-header reveal" style="margin-top:60px">
-    <div class="section-tag">📅 مسيرتنا</div>
-    <h2 class="section-title">محطات <span class="accent">في تاريخنا</span></h2>
-    <div class="divider"></div>
-  </div>
-  <div class="timeline">
-    <div class="tl-item reveal"><div class="tl-dot">🏫</div><div class="tl-content"><h4>تأسيس المدرسة</h4><p>انطلاقة المدرسة الثانوية للبنين في محافظة الكرك وبداية مسيرة تعليمية متميزة.</p></div></div>
-    <div class="tl-item reveal"><div class="tl-dot">🕊️</div><div class="tl-content"><h4>تسمية المدرسة باسم الشهيد</h4><p>تكريماً للطيار الشهيد معاذ الكساسبة رحمه الله، تم إطلاق اسمه على المدرسة لتحمل راية العلم والبطولة.</p></div></div>
-    <div class="tl-item reveal"><div class="tl-dot">💻</div><div class="tl-content"><h4>إطلاق برنامج BTEC IT</h4><p>انضمام المدرسة لبرنامج Pearson Edexcel BTEC الدولي في تكنولوجيا المعلومات، وافتتاح قسم IT المتخصص.</p></div></div>
-    <div class="tl-item reveal"><div class="tl-dot">🏆</div><div class="tl-content"><h4>إنجازات وطنية</h4><p>تحقيق طلاب المدرسة مراكز متقدمة في المسابقات الوطنية للبرمجة وتكنولوجيا المعلومات.</p></div></div>
-    <div class="tl-item reveal"><div class="tl-dot">🚀</div><div class="tl-content"><h4>اليوم والمستقبل</h4><p>مواصلة مسيرة التميز بتطوير البنية التحتية وتحديث المناهج والاستعداد لمستقبل رقمي مشرق.</p></div></div>
   </div>
 </section>
 
+<!-- ABOUT STRIP -->
+<section id="about-strip">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-header" style="align-items:flex-start;margin-bottom:16px;">
+        <div class="section-tag">🏫 عن المدرسة</div>
+        <h2 class="section-title">نرفع اسم <span class="accent">الشهيد</span> بالتميز</h2>
+      </div>
+      <div class="divider" style="margin:16px 0 20px;"></div>
+      <p>مدرسة الشهيد الطيار معاذ الكساسبة الثانوية للبنين مؤسسة تعليمية رائدة تجمع بين التعليم الأكاديمي المتميز والتعليم المهني المتخصص في مجال تكنولوجيا المعلومات.</p>
+      <p>تتميز مدرستنا بامتلاكها برنامج BTEC المعتمد دولياً في تكنولوجيا المعلومات، مما يمنح طلابنا ميزة تنافسية استثنائية في سوق العمل والتعليم الجامعي.</p>
+      <div class="about-features">
+        <div class="feature-card"><div class="feature-icon">🎓</div><div class="feature-title">تعليم أكاديمي</div><div class="feature-desc">مناهج وزارية محدّثة بأعلى معايير الجودة</div></div>
+        <div class="feature-card"><div class="feature-icon">💻</div><div class="feature-title">مسار IT مهني</div><div class="feature-desc">برنامج BTEC معتمد دولياً</div></div>
+        <div class="feature-card"><div class="feature-icon">🏆</div><div class="feature-title">إنجازات متميزة</div><div class="feature-desc">سجل حافل بالمسابقات والجوائز</div></div>
+        <div class="feature-card"><div class="feature-icon">🤝</div><div class="feature-title">بيئة داعمة</div><div class="feature-desc">فريق تدريسي متخصص ومحفز</div></div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <h3>رؤيتنا ورسالتنا</h3>
+      <div class="vm-item"><h4>👁️ رؤيتنا</h4><p>أن نكون مدرسة رائدة ومرجعاً تربوياً وتقنياً على المستوى الوطني، تُخرّج كفاءات مؤهلة لقيادة التحول الرقمي.</p></div>
+      <div class="vm-item"><h4>🎯 رسالتنا</h4><p>تقديم تعليم أكاديمي ومهني متميز في بيئة تعليمية محفزة وآمنة، تبني شخصية الطالب وتنمي مهاراته الرقمية.</p></div>
+      <div class="vm-item"><h4>💎 قيمنا</h4><p>التميز والإبداع • النزاهة والمسؤولية • التعاون والانتماء • الابتكار والتطوير المستمر</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKS -->
+<section id="tracks" style="background:var(--cream)">
+  <div class="section-header reveal">
+    <div class="section-tag">📚 المسارات الدراسية</div>
+    <h2 class="section-title">الصفوف و<span class="accent">المسارات</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">مسارات دراسية متنوعة: أكاديمي (علمي/أدبي) ومهني (IT BTEC)</p>
+  </div>
+  <div class="tracks-grid">
+    <div class="track-card reveal"><div class="track-icon">📖</div><div class="track-name">الصف التاسع</div><div class="track-desc">مرحلة التأسيس والاكتشاف بتعليم شامل يغطي جميع المواد الأساسية مع تنمية مهارات التفكير الناقد.</div></div>
+    <div class="track-card reveal"><div class="track-icon">🎓</div><div class="track-name">الصف العاشر الأكاديمي</div><div class="track-desc">تعليم أكاديمي متكامل يعدّ الطلاب للمرحلة الثانوية ويرسّخ أسس التفكير العلمي والأدبي.</div></div>
+    <div class="track-card it reveal"><div class="track-icon" style="background:linear-gradient(135deg,rgba(201,148,26,.1),rgba(240,180,41,.15))">💻</div><div class="track-name">الصف العاشر IT</div><div class="track-desc">بداية رحلة BTEC الدولي في تكنولوجيا المعلومات، تعلم أساسيات البرمجة والشبكات والأنظمة.</div></div>
+    <div class="track-card reveal"><div class="track-icon">📐</div><div class="track-name">الأول الثانوي الأكاديمي</div><div class="track-desc">مرحلة أعمق في المجالات الأكاديمية العلمية والأدبية، تحضير للتوجيهي وما بعده.</div></div>
+    <div class="track-card it reveal"><div class="track-icon" style="background:linear-gradient(135deg,rgba(201,148,26,.1),rgba(240,180,41,.15))">🖥️</div><div class="track-name">الأول الثانوي IT</div><div class="track-desc">وحدات BTEC المتقدمة: تطوير البرمجيات، إدارة الشبكات، والأمن السيبراني.</div></div>
+    <div class="track-card reveal"><div class="track-icon">🏅</div><div class="track-name">الثاني الثانوي الأكاديمي</div><div class="track-desc">مرحلة ختامية قبل التوجيهي بتركيز مكثف على المواد الأساسية لتحقيق أعلى النتائج.</div></div>
+    <div class="track-card it reveal"><div class="track-icon" style="background:linear-gradient(135deg,rgba(201,148,26,.1),rgba(240,180,41,.15))">🚀</div><div class="track-name">الثاني الثانوي IT</div><div class="track-desc">التتويج بمشاريع تخرج متكاملة وشهادات BTEC المعتمدة دولياً والاستعداد لسوق العمل.</div></div>
+  </div>
+</section>
+
+<!-- BTEC -->
+<section id="btec">
+  <div class="btec-grid">
+    <div class="reveal">
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;">
+        <div class="section-tag" style="background:rgba(201,148,26,.15);color:var(--gold-light);border-color:rgba(201,148,26,.3)">💻 BTEC IT</div>
+        <h2 class="section-title" style="color:#fff;text-align:right;margin-bottom:12px">قسم تكنولوجيا<br><span style="color:var(--gold-light)">المعلومات المتميز</span></h2>
+      </div>
+      <p class="section-desc" style="color:rgba(255,255,255,.6);text-align:right;margin:0 0 30px">برنامج Pearson Edexcel المعتمد دولياً يمنح طلابنا مؤهلات معترفاً بها عالمياً.</p>
+      <div class="btec-achievements">
+        <div class="achievement-card"><span class="stat-num-hero" data-count="3" data-count-target>3</span><span class="achievement-label">مختبرات حديثة</span></div>
+        <div class="achievement-card"><span class="stat-num-hero" data-count="50" data-prefix="+" data-count-target>+50</span><span class="achievement-label">مشروع طلابي</span></div>
+        <div class="achievement-card"><span class="stat-num-hero" data-count="100" data-suffix="%" data-count-target>100%</span><span class="achievement-label">نسبة التوظيف</span></div>
+        <div class="achievement-card"><span class="stat-num-hero">🌍</span><span class="achievement-label">اعتماد دولي</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <h3 style="color:var(--gold-light);margin-bottom:20px;font-size:1.1rem;font-weight:700">📋 الوحدات الدراسية</h3>
+      <div class="unit-item"><div class="unit-num">1</div><div class="unit-info"><h4>مقدمة في تقنية المعلومات</h4><p>Information Technology Fundamentals</p></div></div>
+      <div class="unit-item"><div class="unit-num">2</div><div class="unit-info"><h4>تطوير المواقع والتطبيقات</h4><p>Web & Application Development</p></div></div>
+      <div class="unit-item"><div class="unit-num">3</div><div class="unit-info"><h4>إدارة الشبكات والبنية التحتية</h4><p>Networking & Infrastructure</p></div></div>
+      <div class="unit-item"><div class="unit-num">4</div><div class="unit-info"><h4>الأمن السيبراني</h4><p>Cybersecurity & Data Protection</p></div></div>
+      <div class="unit-item"><div class="unit-num">5</div><div class="unit-info"><h4>قواعد البيانات وإدارة المعلومات</h4><p>Database Management Systems</p></div></div>
+      <div class="unit-item"><div class="unit-num">6</div><div class="unit-info"><h4>مشروع التخرج التقني</h4><p>IT Technical Graduation Project</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS PREVIEW -->
+<section id="news-preview" style="background:#fff">
+  <div class="section-header reveal">
+    <div class="section-tag">📰 آخر الأخبار</div>
+    <h2 class="section-title">أخبار وفعاليات <span class="accent">المدرسة</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="news-grid container" id="homeNewsGrid">
+    <div class="spinner"></div>
+  </div>
+  <div style="text-align:center;margin-top:40px">
+    <a href="/news" class="btn btn-green reveal">عرض جميع الأخبار ←</a>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" style="background:var(--cream)">
+  <div class="section-header reveal">
+    <div class="section-tag">📸 المعرض</div>
+    <h2 class="section-title">معرض <span class="accent">الصور والأنشطة</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item"><div class="gallery-inner g1">🎓<div class="gallery-label">حفل التخرج السنوي</div></div></div>
+    <div class="gallery-item"><div class="gallery-inner g2">🏆<div class="gallery-label">مسابقة البرمجة الوطنية</div></div></div>
+    <div class="gallery-item"><div class="gallery-inner g3">💻<div class="gallery-label">مختبر تكنولوجيا المعلومات</div></div></div>
+    <div class="gallery-item"><div class="gallery-inner g4">🎪<div class="gallery-label">يوم التوجيه المهني</div></div></div>
+    <div class="gallery-item"><div class="gallery-inner g5">🚀<div class="gallery-label">مشاريع طلاب BTEC</div></div></div>
+  </div>
+</section>
+
+<!-- STAFF PREVIEW -->
+<section id="staff" style="background:#fff">
+  <div class="section-header reveal">
+    <div class="section-tag">👨‍🏫 الكادر التعليمي</div>
+    <h2 class="section-title">الهيئة <span class="accent">الإدارية والتدريسية</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="staff-sub-title reveal" style="max-width:1200px;margin:0 auto 20px">🏛️ الإدارة</div>
+  <div class="staff-admin reveal" style="grid-template-columns:repeat(2,1fr);max-width:600px;margin-bottom:40px">
+    <div class="staff-card admin-card"><div class="staff-avatar">👨‍💼</div><div class="staff-name">معاوية المطارنة</div><div class="staff-role" style="color:#2d6a9a;font-weight:600">مدير المدرسة</div></div>
+    <div class="staff-card admin-card"><div class="staff-avatar">👨‍💼</div><div class="staff-name">ليث العيدي</div><div class="staff-role" style="color:#2d6a9a;font-weight:600">مساعد المدير</div></div>
+  </div>
+  <div class="staff-sub-title reveal" style="max-width:1200px;margin:0 auto 20px">💻 أساتذة BTEC IT</div>
+  <div class="staff-admin reveal" style="max-width:900px;margin-bottom:40px">
+    <div class="staff-card btec"><div class="staff-avatar" style="background:linear-gradient(135deg,var(--gold),var(--gold-light))">💻</div><div class="staff-name">أ. معاذ القراله</div><div class="staff-role" style="color:var(--gold);font-weight:600">مشرف BTEC IT</div></div>
+    <div class="staff-card btec"><div class="staff-avatar" style="background:linear-gradient(135deg,var(--gold),var(--gold-light))">💻</div><div class="staff-name">أ. محمد المجالية</div><div class="staff-role" style="color:var(--gold);font-weight:600">تكنولوجيا المعلومات</div></div>
+    <div class="staff-card btec"><div class="staff-avatar" style="background:linear-gradient(135deg,var(--gold),var(--gold-light))">💻</div><div class="staff-name">أ. مؤيد القراله</div><div class="staff-role" style="color:var(--gold);font-weight:600">تكنولوجيا المعلومات</div></div>
+    <div class="staff-card btec"><div class="staff-avatar" style="background:linear-gradient(135deg,var(--gold),var(--gold-light))">💻</div><div class="staff-name">أ. ليث</div><div class="staff-role" style="color:var(--gold);font-weight:600">تكنولوجيا المعلومات</div></div>
+  </div>
+  <div class="staff-sub-title reveal" style="max-width:1200px;margin:0 auto 20px">📚 الكادر التدريسي</div>
+  <div class="staff-admin reveal">
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. عاصم الرواشدة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. علاء الدين الحروب</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. محمد سميح المطارنة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. محمد الصرايرة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. محمد القراله</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. عاصف الطراونة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. كافي المطارنة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. رأفت الضلاعين</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. محمد عادل الكساسبة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. محمد عادل المطارنة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. جبريل الشواورة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. سلامة الكساسبة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. سهم الكساسبة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. علي الحروب</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. محمد عمر الشواورة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. زياد المطارنة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. مؤمن الضلاعين</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. عمر سميح عرب الشواورة</div><div class="staff-role">هيئة تدريسية</div></div>
+    <div class="staff-card"><div class="staff-avatar">👨‍🏫</div><div class="staff-name">أ. بلال القراله</div><div class="staff-role">هيئة تدريسية</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand"><div class="logo-area"><img src="/images/school-logo.jpg" class="logo-img-footer" alt="شعار المدرسة"><div><div style="font-weight:800;font-size:.95rem">مدرسة الشهيد معاذ الكساسبة</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">الثانوية للبنين | BTEC IT</div></div></div><p>مؤسسة تعليمية رائدة تجمع بين الأصالة والحداثة.</p></div>
-    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li><li><a href="/contact">تواصل</a></li></ul></div>
-    <div class="footer-col"><h4>معلومات</h4><ul><li><a href="tel:+96232365301">📞 +962-3-2365301</a></li><li><a href="mailto:aiyschool1@gmail.com">📧 aiyschool1@gmail.com</a></li></ul></div>
-    <div class="footer-col"><h4>تابعنا</h4><div class="social-links"><a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" class="social-btn" title="صفحة الفيسبوك"><svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a></div></div>
+    <div class="footer-brand">
+      <div class="logo-area"><img src="/images/school-logo.jpg" class="logo-img-footer" alt="شعار المدرسة"><div><div style="font-weight:800;font-size:.95rem">مدرسة الشهيد معاذ الكساسبة</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">الثانوية للبنين | BTEC IT</div></div></div>
+      <p>مؤسسة تعليمية رائدة تجمع بين الأصالة والحداثة، تُخرّج أجيالاً مؤهلة قادرة على قيادة مستقبل الأردن الرقمي.</p>
+    </div>
+    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li><li><a href="#tracks">المسارات</a></li></ul></div>
+    <div class="footer-col"><h4>خدمات</h4><ul><li><a href="#btec">قسم IT BTEC</a></li><li><a href="#gallery">معرض الصور</a></li><li><a href="/contact">اتصل بنا</a></li></ul></div>
+    <div class="footer-col"><h4>تواصل معنا</h4><ul><li><a href="tel:+96232365301">📞 +962-3-2365301</a></li><li><a href="mailto:aiyschool1@gmail.com">📧 aiyschool1@gmail.com</a></li></ul><div class="social-links"><a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" class="social-btn" title="صفحة الفيسبوك"><svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a></div></div>
   </div>
-  <div class="footer-bottom"><p>© 2026 مدرسة الشهيد الطيار معاذ الكساسبة — جميع الحقوق محفوظة</p><p style="margin-top:6px">تم التطوير بواسطة الطالب <strong style="color:var(--gold-light)">زيد طاهر المصري</strong> 💚</p></div>
+  <div class="footer-bottom">
+    <p>© 2026 مدرسة الشهيد الطيار معاذ الكساسبة الثانوية للبنين — جميع الحقوق محفوظة</p>
+    <p style="margin-top:6px">تم التطوير بواسطة الطالب <strong style="color:var(--gold-light)">زيد طاهر المصري</strong> من قسم تكنولوجيا المعلومات 💚</p>
+  </div>
 </footer>
 <button id="scrollTop">↑</button>
 <script src="/js/script.js"></script>
+<script>
+// Load latest 3 news
+async function loadHomeNews() {
+  const grid = document.getElementById('homeNewsGrid');
+  try {
+    const res = await API.get('/api/news?limit=3');
+    if (!res.success || !res.news.length) {
+      grid.innerHTML = '<div class="empty-state"><span class="icon">📰</span><h3>لا توجد أخبار حالياً</h3></div>';
+      return;
+    }
+    const colors = ['green','gold','teal'];
+    const icons  = ['🏆','📅','🎓'];
+    grid.innerHTML = res.news.map((n,i) => `
+      <div class="news-card reveal">
+        <div class="news-img ${colors[i%3]}">${n.image ? `<img src="${n.image}" alt="${n.title}">` : icons[i%3]}
+          <span class="news-date">${formatDate(n.createdAt)}</span>
+        </div>
+        <div class="news-body">
+          <span class="news-cat">${n.category}</span>
+          <h3 class="news-title">${n.title}</h3>
+          <p class="news-excerpt">${n.excerpt || n.content.substring(0,120)+'...'}</p>
+          <a href="/news" class="news-link">قراءة المزيد ←</a>
+        </div>
+      </div>`).join('');
+    // re-observe reveals
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      const obs = new IntersectionObserver(e => { if(e[0].isIntersecting) e[0].target.classList.add('visible'); },{threshold:.1});
+      obs.observe(el);
+    });
+  } catch {
+    grid.innerHTML = '<div class="empty-state"><span class="icon">⚠️</span><h3>تعذر تحميل الأخبار</h3></div>';
+  }
+}
+loadHomeNews();
+
+// Hero particles
+const hero = document.getElementById('hero');
+for(let i=0;i<20;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  const s=Math.random()*6+2;
+  const c=['rgba(201,148,26,.4)','rgba(61,181,96,.35)','rgba(255,255,255,.2)'];
+  p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;background:${c[Math.floor(Math.random()*3)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*8}s;`;
+  hero.appendChild(p);
+}
+// Hero parallax
+hero.addEventListener('mousemove',e=>{
+  const cx=(e.clientX/window.innerWidth-.5)*20;
+  const cy=(e.clientY/window.innerHeight-.5)*20;
+  const c=hero.querySelector('.hero-content');
+  if(c) c.style.transform=`translate(${cx*.4}px,${cy*.4}px)`;
+});
+hero.addEventListener('mouseleave',()=>{ const c=hero.querySelector('.hero-content'); if(c) c.style.transform=''; });
+// Counter for hero stats
+document.querySelectorAll('[data-count-target]').forEach(el=>{
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const target=+el.dataset.count;
+      const prefix=el.dataset.prefix||'';
+      const suffix=el.dataset.suffix||'';
+      let start=null;
+      const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/1500,1);const ease=1-Math.pow(1-p,3);el.textContent=prefix+Math.floor(ease*target)+suffix;if(p<1)requestAnimationFrame(step);else el.textContent=prefix+target+suffix;};
+      requestAnimationFrame(step);
+      obs.unobserve(el);
+    });
+  },{threshold:.5});
+  obs.observe(el);
+});
+
+// ── Page Loader ─────────────────────────────────────────────
+const loader = document.createElement('div');
+loader.id = 'pageLoader';
+loader.innerHTML = '<div class="loader-logo">🏫</div><div class="loader-bar"><div class="loader-bar-fill"></div></div>';
+document.body.prepend(loader);
+window.addEventListener('load', () => setTimeout(() => loader.classList.add('hidden'), 1300));
+
+// ── Button ripple effect ─────────────────────────────────────
+document.querySelectorAll('.btn-primary, .btn-secondary, .btn-outline').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.addEventListener('click', function(e) {
+    const r = document.createElement('span');
+    r.className = 'btn-ripple';
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+    this.appendChild(r);
+    setTimeout(() => r.remove(), 600);
+  });
+});
+
+// ── Card tilt on mousemove ───────────────────────────────────
+document.querySelectorAll('.news-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px)`;
+    card.style.boxShadow = `${-x*20}px ${-y*20}px 40px rgba(0,0,0,.15)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+  });
+});
+
+// ── Section title reveal underline ──────────────────────────
+document.querySelectorAll('.section-title, .section-header h2').forEach(el => {
+  const obs = new IntersectionObserver(e => {
+    if(e[0].isIntersecting) el.classList.add('visible');
+  }, {threshold: 0.5});
+  obs.observe(el);
+});
+
+// ── Animated number counters on stat cards ───────────────────
+document.querySelectorAll('.s-num').forEach(el => {
+  const target = parseInt(el.textContent) || 0;
+  if(!target) return;
+  const obs = new IntersectionObserver(entries => {
+    if(!entries[0].isIntersecting) return;
+    let start = null;
+    const step = ts => {
+      if(!start) start = ts;
+      const p = Math.min((ts - start) / 1000, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(step);
+    obs.unobserve(el);
+  }, {threshold: 0.5});
+  obs.observe(el);
+});
+
+// ── Floating particles on whole page ────────────────────────
+const canvas = document.createElement('canvas');
+canvas.id = 'particles-canvas';
+document.body.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+let W = canvas.width = window.innerWidth;
+let H = canvas.height = window.innerHeight;
+window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+const dots = Array.from({length:40}, () => ({
+  x: Math.random()*W, y: Math.random()*H,
+  r: Math.random()*2+1,
+  dx: (Math.random()-.5)*.4,
+  dy: (Math.random()-.5)*.4,
+  color: Math.random()>.5 ? 'rgba(201,148,26,.25)' : 'rgba(61,181,96,.2)'
+}));
+(function animateDots(){
+  ctx.clearRect(0,0,W,H);
+  dots.forEach(d => {
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+    ctx.fillStyle = d.color;
+    ctx.fill();
+    d.x += d.dx; d.y += d.dy;
+    if(d.x<0||d.x>W) d.dx*=-1;
+    if(d.y<0||d.y>H) d.dy*=-1;
+  });
+  requestAnimationFrame(animateDots);
+})();
+</script>
 </body>
 </html>
