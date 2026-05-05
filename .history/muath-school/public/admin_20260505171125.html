@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>لوحة التحكم — مدرسة الشهيد معاذ الكساسبة</title>
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+body{cursor:auto}
+#cursorDot,#cursorRing{display:none}
+
+/* ====== إصلاح الكروت ====== */
+.stat-cards {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 20px !important;
+  margin-bottom: 30px !important;
+  position: relative !important;
+  /* إزالة أي تأثير يسبب تراكب */
+  transform: none !important;
+  clear: both !important;
+}
+
+.stat-card {
+  background: white !important;
+  border-radius: 24px !important;
+  padding: 20px 16px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  /* منع أي absolute أو float */
+  position: relative !important;
+  float: none !important;
+  transform: none !important;
+  margin: 0 !important;
+}
+
+/* إضافة ألوان خلفية خفيفة حسب الكلاس */
+.stat-card.gold {
+  background: linear-gradient(135deg, #fff8e7, #ffffff) !important;
+  border-top: 4px solid #c9941a !important;
+}
+.stat-card.red {
+  background: linear-gradient(135deg, #fff5f5, #ffffff) !important;
+  border-top: 4px solid #e74c3c !important;
+}
+.stat-card.blue {
+  background: linear-gradient(135deg, #f0f7ff, #ffffff) !important;
+  border-top: 4px solid #3498db !important;
+}
+
+/* تنسيق الأيقونة والرقم */
+.stat-card .s-icon {
+  font-size: 2.8rem !important;
+  margin-bottom: 12px !important;
+}
+.stat-card .s-num {
+  font-size: 2.2rem !important;
+  font-weight: 800 !important;
+  color: #1a2c3a !important;
+  line-height: 1.2 !important;
+  margin: 8px 0 6px !important;
+}
+.stat-card .s-label {
+  font-size: 0.85rem !important;
+  color: #5a6e7a !important;
+  font-weight: 500 !important;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 640px) {
+  .stat-cards {
+    gap: 15px !important;
+    grid-template-columns: 1fr !important;
+  }
+  .stat-card {
+    padding: 16px !important;
+  }
+  .stat-card .s-icon {
+    font-size: 2.2rem !important;
+  }
+  .stat-card .s-num {
+    font-size: 1.8rem !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="/" class="nav-logo"><img src="/images/school-logo.jpg" style="width:42px;height:42px;border-radius:10px;object-fit:cover;" alt="شعار المدرسة"><div class="logo-text">لوحة التحكم<span>مدرسة الشهيد معاذ الكساسبة</span></div></a>
+  <div style="display:flex;align-items:center;gap:16px">
+    <a href="/" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.85rem">← الموقع الرئيسي</a>
+    <button onclick="logout()" class="btn btn-sm btn-danger">خروج</button>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div style="padding:24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:16px">
+      <div style="font-size:.95rem;font-weight:700;color:#fff" id="adminName">المدير</div>
+      <div style="font-size:.78rem;color:var(--gold-light);margin-top:4px">مدير النظام</div>
+    </div>
+    <div class="sidebar-title">NAVIGATION</div>
+    <a href="#" class="active" onclick="showPage('dashboard',this)"><span class="icon">📊</span> لوحة المعلومات</a>
+    <a href="#" onclick="showPage('news',this)"><span class="icon">📰</span> إدارة الأخبار</a>
+    <a href="#" onclick="showPage('messages',this)"><span class="icon">✉️</span> الرسائل <span id="unreadBadge" style="background:var(--red);color:#fff;border-radius:50px;padding:1px 8px;font-size:.72rem;margin-right:auto"></span></a>
+    <a href="#" onclick="showPage('users',this)"><span class="icon">👥</span> المستخدمون</a>
+    <a href="#" onclick="showPage('staff',this)"><span class="icon">👨‍🏫</span> الكادر التعليمي</a>
+    <div style="margin-top:24px;border-top:1px solid rgba(255,255,255,.08);padding-top:16px">
+      <a href="/" style="color:rgba(255,255,255,.4)"><span class="icon">🌐</span> زيارة الموقع</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+
+    <!-- DASHBOARD -->
+    <div class="admin-page active" id="page-dashboard">
+      <div class="admin-header">
+        <h1 class="admin-title">📊 لوحة المعلومات</h1>
+        <span style="color:var(--gray);font-size:.9rem" id="dateDisplay"></span>
+      </div>
+      <div class="stat-cards" id="statsCards">
+        <div class="stat-card"><div class="s-icon">📰</div><span class="s-num" id="sNews">-</span><div class="s-label">إجمالي الأخبار</div></div>
+        <div class="stat-card gold"><div class="s-icon">✉️</div><span class="s-num" id="sMessages">-</span><div class="s-label">الرسائل الكلية</div></div>
+        <div class="stat-card red"><div class="s-icon">🔔</div><span class="s-num" id="sUnread">-</span><div class="s-label">رسائل غير مقروءة</div></div>
+        <div class="stat-card blue"><div class="s-icon">👥</div><span class="s-num" id="sUsers">-</span><div class="s-label">المستخدمون</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div style="background:#fff;border-radius:20px;padding:24px;border:1px solid rgba(0,0,0,.07)">
+          <h3 style="font-size:1rem;font-weight:800;margin-bottom:16px">⚡ إجراءات سريعة</h3>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn btn-green" onclick="showPage('news');openNewsModal()">+ إضافة خبر جديد</button>
+            <button class="btn" style="background:rgba(26,92,42,.1);color:var(--green-mid)" onclick="showPage('messages',document.querySelector('[onclick*=messages]'))">📩 عرض الرسائل</button>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:20px;padding:24px;border:1px solid rgba(0,0,0,.07)">
+          <h3 style="font-size:1rem;font-weight:800;margin-bottom:16px">ℹ️ معلومات النظام</h3>
+          <div style="font-size:.85rem;color:var(--gray);line-height:2">
+            <div>🟢 الخادم: يعمل بشكل طبيعي</div>
+            <div>🗄️ قاعدة البيانات: MongoDB</div>
+            <div>🔐 المصادقة: JWT + Sessions</div>
+            <div>📧 الإيميل: aiyschool1@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS MANAGEMENT -->
+    <div class="admin-page" id="page-news">
+      <div class="admin-header">
+        <h1 class="admin-title">📰 إدارة الأخبار</h1>
+        <button class="btn btn-green" onclick="openNewsModal()">+ إضافة خبر</button>
+      </div>
+      <div id="newsTableWrap"><div class="spinner"></div></div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="admin-page" id="page-messages">
+      <div class="admin-header"><h1 class="admin-title">✉️ الرسائل الواردة</h1></div>
+      <div id="messagesWrap"><div class="spinner"></div></div>
+    </div>
+
+    <!-- USERS -->
+    <div class="admin-page" id="page-users">
+      <div class="admin-header"><h1 class="admin-title">👥 إدارة المستخدمين</h1></div>
+      <div id="usersWrap"><div class="spinner"></div></div>
+    </div>
+
+    <!-- STAFF PAGE -->
+    <div class="admin-page" id="page-staff">
+      <div class="admin-header">
+        <h1 class="admin-title">👨‍🏫 الكادر التعليمي</h1>
+        <button class="btn btn-green" onclick="openStaffModal()">+ إضافة عضو</button>
+      </div>
+      <div id="staffGrid" class="staff-admin-grid"><div class="spinner"></div></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- STAFF MODAL -->
+<div class="modal-overlay" id="staffModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <h2 id="staffModalTitle">إضافة عضو كادر</h2>
+      <button class="modal-close" onclick="closeStaffModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:20px">
+        <img id="staffPreview" src="/images/school-logo.jpg" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid var(--green-light);cursor:pointer;" onclick="document.getElementById('staffImgInput').click()" title="اضغط لتغيير الصورة">
+        <p style="font-size:.8rem;color:var(--gray);margin-top:8px">اضغط على الصورة لتغييرها</p>
+        <input type="file" id="staffImgInput" accept="image/*" style="display:none" onchange="previewStaffImg(this)">
+      </div>
+      <div class="form-group">
+        <label>الاسم الكامل</label>
+        <input type="text" id="staffName" placeholder="أ. محمد الكساسبة">
+      </div>
+      <div class="form-group">
+        <label>المادة / الوظيفة</label>
+        <input type="text" id="staffRole" placeholder="تكنولوجيا المعلومات">
+      </div>
+      <div class="form-group">
+        <label>القسم</label>
+        <select id="staffDept">
+          <option value="admin">الإدارة</option>
+          <option value="btec">BTEC IT</option>
+          <option value="teaching" selected>الكادر التدريسي</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeStaffModal()">إلغاء</button>
+      <button class="btn btn-green" onclick="saveStaff()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS MODAL -->
+<div class="modal-overlay" id="newsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="newsModalTitle">إضافة خبر جديد</h2>
+      <button class="modal-close" onclick="closeNewsModal()">✕</button>
+    </div>
+    <form id="newsForm" enctype="multipart/form-data">
+      <input type="hidden" id="newsId">
+      <div class="form-group"><label>عنوان الخبر *</label><input type="text" id="newsTitle" placeholder="عنوان الخبر" required></div>
+      <div class="form-group"><label>التصنيف</label>
+        <select id="newsCategory">
+          <option value="إنجاز">🏆 إنجاز</option><option value="فعالية">🎪 فعالية</option>
+          <option value="أكاديمي">📚 أكاديمي</option><option value="إعلان">📢 إعلان</option><option value="أخرى">أخرى</option>
+        </select>
+      </div>
+      <div class="form-group"><label>المحتوى *</label><textarea id="newsContent" rows="5" placeholder="محتوى الخبر..." required></textarea></div>
+      <div class="form-group"><label>صورة الخبر (اختياري)</label><input type="file" id="newsImage" accept="image/*" style="background:#fff;cursor:pointer"></div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <button type="button" class="btn btn-green" onclick="submitNews()" style="flex:1">حفظ الخبر</button>
+        <button type="button" class="btn" style="background:rgba(0,0,0,.06);color:var(--gray)" onclick="closeNewsModal()">إلغاء</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MESSAGE MODAL -->
+<div class="modal-overlay" id="msgModal">
+  <div class="modal">
+    <div class="modal-header"><h2>تفاصيل الرسالة</h2><button class="modal-close" onclick="document.getElementById('msgModal').classList.remove('open')">✕</button></div>
+    <div id="msgDetail"></div>
+  </div>
+</div>
+
+<script src="/js/script.js"></script>
+<script>
+// Auth guard
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!isLoggedIn() || !isAdmin()) { window.location.href = '/login'; return; }
+  const u = API.user();
+  document.getElementById('adminName').textContent = u?.name || 'المدير';
+  document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('ar-JO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  loadStats();
+});
+
+// Page navigation
+function showPage(name, el) {
+  document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.admin-sidebar a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  if (name === 'news')     loadNewsTable();
+  if (name === 'messages') loadMessages();
+  if (name === 'users')    loadUsers();
+  if (name === 'staff')    loadStaff();
+}
+
+// ── STAFF MANAGEMENT (Real API) ───────────────────────────
+let editingStaffId = null;
+
+async function loadStaff() {
+  const grid = document.getElementById('staffGrid');
+  grid.innerHTML = '<div class="spinner"></div>';
+  const res = await API.get('/api/staff');
+  if (!res.success) { grid.innerHTML = '<p style="color:red">خطأ في تحميل الكادر</p>'; return; }
+  const depts = { admin:'🏛️ الإدارة', btec:'💻 BTEC IT', teaching:'📚 الكادر التدريسي' };
+  let html = '';
+  Object.entries(depts).forEach(([key, label]) => {
+    const members = res.staff.filter(s => s.dept === key);
+    if (!members.length) return;
+    html += `<div class="staff-dept-title">${label}</div><div class="staff-admin-row">`;
+    members.forEach(s => {
+      const imgSrc = s.image || '/images/school-logo.jpg';
+      html += `
+        <div class="staff-admin-card">
+          <img src="${imgSrc}" class="staff-admin-img" alt="${s.name}" onerror="this.src='/images/school-logo.jpg'">
+          <div class="staff-admin-name">${s.name}</div>
+          <div class="staff-admin-role">${s.role}</div>
+          <div class="staff-admin-actions">
+            <button class="btn btn-sm" style="background:rgba(201,148,26,.1);color:var(--gold)" onclick="editStaff('${s._id}','${s.name}','${s.role}','${s.dept}','${s.image||''}')">✏️ تعديل</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteStaff('${s._id}')">🗑️</button>
+          </div>
+        </div>`;
+    });
+    html += '</div>';
+  });
+  grid.innerHTML = html || '<div class="empty-state"><span class="icon">👨‍🏫</span><h3>لا يوجد كادر مضاف — اضغط + إضافة عضو</h3></div>';
+}
+
+function openStaffModal(id = null) {
+  editingStaffId = id;
+  document.getElementById('staffModalTitle').textContent = id ? 'تعديل بيانات العضو' : 'إضافة عضو كادر';
+  if (!id) {
+    document.getElementById('staffName').value = '';
+    document.getElementById('staffRole').value = '';
+    document.getElementById('staffDept').value = 'teaching';
+    document.getElementById('staffPreview').src = '/images/school-logo.jpg';
+  }
+  document.getElementById('staffImgInput').value = '';
+  document.getElementById('staffModal').classList.add('open');
+}
+
+function editStaff(id, name, role, dept, img) {
+  editingStaffId = id;
+  document.getElementById('staffModalTitle').textContent = 'تعديل بيانات العضو';
+  document.getElementById('staffName').value = name;
+  document.getElementById('staffRole').value = role;
+  document.getElementById('staffDept').value = dept;
+  document.getElementById('staffPreview').src = img || '/images/school-logo.jpg';
+  document.getElementById('staffImgInput').value = '';
+  document.getElementById('staffModal').classList.add('open');
+}
+
+function closeStaffModal() {
+  document.getElementById('staffModal').classList.remove('open');
+  editingStaffId = null;
+}
+
+function previewStaffImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => { document.getElementById('staffPreview').src = e.target.result; };
+  reader.readAsDataURL(file);
+}
+
+async function saveStaff() {
+  const name = document.getElementById('staffName').value.trim();
+  const role = document.getElementById('staffRole').value.trim();
+  const dept = document.getElementById('staffDept').value;
+  const imgFile = document.getElementById('staffImgInput').files[0];
+  if (!name || !role) { showNotif('❌ الاسم والمادة مطلوبان', 'error'); return; }
+  const fd = new FormData();
+  fd.append('name', name); fd.append('role', role); fd.append('dept', dept);
+  if (imgFile) fd.append('image', imgFile);
+  const res = editingStaffId
+    ? await API.putForm('/api/staff/' + editingStaffId, fd)
+    : await API.postForm('/api/staff', fd);
+  if (res.success) { showNotif('✅ تم الحفظ بنجاح'); closeStaffModal(); loadStaff(); }
+  else showNotif('❌ ' + (res.message || 'خطأ'), 'error');
+}
+
+async function deleteStaff(id) {
+  if (!confirmDialog('حذف هذا العضو نهائياً؟')) return;
+  const res = await API.delete('/api/staff/' + id);
+  if (res.success) { showNotif('✅ تم الحذف'); loadStaff(); }
+  else showNotif('❌ ' + (res.message || 'خطأ'), 'error');
+}
+
+// Stats
+async function loadStats() {
+  const res = await API.get('/api/users/stats');
+  if (!res.success) return;
+  const { news, messages, unread, users } = res.stats;
+  document.getElementById('sNews').textContent     = news;
+  document.getElementById('sMessages').textContent = messages;
+  document.getElementById('sUnread').textContent   = unread;
+  document.getElementById('sUsers').textContent    = users;
+  if (unread > 0) document.getElementById('unreadBadge').textContent = unread;
+}
+
+// ── NEWS ───────────────────────────────────────────────────
+async function loadNewsTable() {
+  const wrap = document.getElementById('newsTableWrap');
+  wrap.innerHTML = '<div class="spinner"></div>';
+  const res = await API.get('/api/news?limit=50');
+  if (!res.success || !res.news.length) {
+    wrap.innerHTML = '<div class="empty-state"><span class="icon">📰</span><h3>لا توجد أخبار بعد</h3><button class="btn btn-green" onclick="openNewsModal()">+ إضافة أول خبر</button></div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <table class="data-table">
+      <thead><tr><th>#</th><th>العنوان</th><th>التصنيف</th><th>التاريخ</th><th>الإجراءات</th></tr></thead>
+      <tbody>${res.news.map((n,i) => `
+        <tr>
+          <td>${i+1}</td>
+          <td><strong>${n.title}</strong></td>
+          <td><span class="badge badge-green">${n.category}</span></td>
+          <td>${formatDate(n.createdAt)}</td>
+          <td><div class="table-actions">
+            <button class="btn btn-sm btn-green" onclick="editNews('${n._id}','${escHtml(n.title)}','${n.category}',\`${escHtml(n.content)}\`)">✏️ تعديل</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteNews('${n._id}')">🗑️ حذف</button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function escHtml(s) { return (s||'').replace(/`/g,"'").replace(/\\/g,'\\\\'); }
+
+function openNewsModal(id='',title='',cat='إنجاز',content='') {
+  document.getElementById('newsId').value       = id;
+  document.getElementById('newsTitle').value    = title;
+  document.getElementById('newsCategory').value = cat;
+  document.getElementById('newsContent').value  = content;
+  document.getElementById('newsModalTitle').textContent = id ? 'تعديل الخبر' : 'إضافة خبر جديد';
+  document.getElementById('newsModal').classList.add('open');
+}
+function closeNewsModal() { document.getElementById('newsModal').classList.remove('open'); }
+function editNews(id,title,cat,content) { openNewsModal(id,title,cat,content); }
+
+async function submitNews() {
+  const id      = document.getElementById('newsId').value;
+  const title   = document.getElementById('newsTitle').value.trim();
+  const content = document.getElementById('newsContent').value.trim();
+  const cat     = document.getElementById('newsCategory').value;
+  const imgFile = document.getElementById('newsImage').files[0];
+  if (!title || !content) { showNotif('❌ العنوان والمحتوى مطلوبان','error'); return; }
+  const fd = new FormData();
+  fd.append('title', title); fd.append('content', content); fd.append('category', cat);
+  if (imgFile) fd.append('image', imgFile);
+  const res = id ? await API.putForm(`/api/news/${id}`, fd) : await API.postForm('/api/news', fd);
+  if (res.success) { showNotif('✅ تم الحفظ بنجاح'); closeNewsModal(); loadNewsTable(); loadStats(); }
+  else showNotif('❌ ' + res.message, 'error');
+}
+
+async function deleteNews(id) {
+  if (!confirmDialog('هل أنت متأكد من حذف هذا الخبر؟')) return;
+  const res = await API.delete('/api/news/' + id);
+  if (res.success) { showNotif('✅ تم الحذف'); loadNewsTable(); loadStats(); }
+  else showNotif('❌ ' + res.message, 'error');
+}
+
+// ── MESSAGES ───────────────────────────────────────────────
+async function loadMessages() {
+  const wrap = document.getElementById('messagesWrap');
+  wrap.innerHTML = '<div class="spinner"></div>';
+  try {
+    const res = await API.get('/api/messages');
+    if (!res.success) {
+      wrap.innerHTML = '<div class="empty-state"><span class="icon">⚠️</span><h3>خطأ في تحميل الرسائل</h3><p>' + (res.message||'تحقق من الاتصال') + '</p></div>';
+      return;
+    }
+    if (!res.messages || !res.messages.length) {
+      wrap.innerHTML = '<div class="empty-state"><span class="icon">✉️</span><h3>لا توجد رسائل بعد</h3></div>';
+      return;
+    }
+    wrap.innerHTML = `
+      <table class="data-table">
+        <thead><tr><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>الموضوع</th><th>التاريخ</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+        <tbody>${res.messages.map(m => `
+          <tr style="${m.read?'':'background:rgba(201,148,26,.06);font-weight:600'}">
+            <td><strong>${m.name}</strong></td>
+            <td><a href="mailto:${m.email}" style="color:var(--green-mid)">${m.email}</a></td>
+            <td>${m.phone||'-'}</td>
+            <td>${m.subject}</td>
+            <td>${formatDate(m.createdAt)}</td>
+            <td><span class="badge ${m.read?'badge-gray':'badge-gold'}">${m.read?'مقروءة':'🔔 جديدة'}</span></td>
+            <td><div class="table-actions">
+              <button class="btn btn-sm btn-green" onclick="viewMsg('${m._id}','${escHtml(m.name)}','${m.email}','${escHtml(m.subject)}',\`${escHtml(m.message)}\`,'${m.phone||''}','${m.role||''}')">👁️ عرض</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteMsg('${m._id}')">🗑️</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+  } catch(e) {
+    wrap.innerHTML = '<div class="empty-state"><span class="icon">⚠️</span><h3>خطأ في الاتصال بالخادم</h3></div>';
+  }
+}
+
+async function viewMsg(id,name,email,subject,message,phone,role) {
+  await API.put ? null : null;
+  // mark as read
+  await fetch(`/api/messages/${id}/read`,{method:'PATCH',headers:{'Authorization':'Bearer '+API.token()}});
+  document.getElementById('msgDetail').innerHTML = `
+    <div style="display:grid;gap:12px">
+      <div style="background:var(--cream);border-radius:12px;padding:16px"><strong>الاسم:</strong> ${name}</div>
+      <div style="background:var(--cream);border-radius:12px;padding:16px"><strong>البريد:</strong> <a href="mailto:${email}">${email}</a></div>
+      ${phone?`<div style="background:var(--cream);border-radius:12px;padding:16px"><strong>الهاتف:</strong> ${phone}</div>`:''}
+      ${role?`<div style="background:var(--cream);border-radius:12px;padding:16px"><strong>الصفة:</strong> ${role}</div>`:''}
+      <div style="background:var(--cream);border-radius:12px;padding:16px"><strong>الموضوع:</strong> ${subject}</div>
+      <div style="background:var(--cream);border-radius:12px;padding:16px;min-height:100px"><strong>الرسالة:</strong><br><br>${message}</div>
+      <a href="mailto:${email}?subject=رد: ${subject}" class="btn btn-green">📧 رد عبر البريد</a>
+    </div>`;
+  document.getElementById('msgModal').classList.add('open');
+  loadMessages(); loadStats();
+}
+
+async function deleteMsg(id) {
+  if (!confirmDialog('حذف هذه الرسالة؟')) return;
+  const res = await API.delete('/api/messages/' + id);
+  if (res.success) { showNotif('✅ تم الحذف'); loadMessages(); loadStats(); }
+}
+
+// ── USERS ──────────────────────────────────────────────────
+async function loadUsers() {
+  const wrap = document.getElementById('usersWrap');
+  wrap.innerHTML = '<div class="spinner"></div>';
+  const res = await API.get('/api/users');
+  if (!res.success) { wrap.innerHTML='<div class="empty-state"><span class="icon">⚠️</span><h3>خطأ في التحميل</h3></div>'; return; }
+  wrap.innerHTML = `
+    <table class="data-table">
+      <thead><tr><th>الاسم</th><th>البريد</th><th>الدور</th><th>تاريخ التسجيل</th><th>الإجراءات</th></tr></thead>
+      <tbody>${res.users.map(u => `
+        <tr>
+          <td><strong>${u.name}</strong></td>
+          <td>${u.email}</td>
+          <td><span class="badge ${u.role==='admin'?'badge-gold':'badge-green'}">${u.role==='admin'?'مدير':'مستخدم'}</span></td>
+          <td>${formatDate(u.createdAt)}</td>
+          <td><div class="table-actions">
+            <button class="btn btn-sm" style="background:rgba(201,148,26,.1);color:var(--gold)" onclick="toggleRole('${u._id}','${u.role}')">${u.role==='admin'?'↓ مستخدم':'↑ مدير'}</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteUser('${u._id}')">🗑️</button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+async function toggleRole(id, cur) {
+  const newRole = cur === 'admin' ? 'user' : 'admin';
+  if (!confirmDialog(`تغيير الدور إلى "${newRole==='admin'?'مدير':'مستخدم'}"؟`)) return;
+  const res = await API.put(`/api/users/${id}/role`, { role: newRole });
+  if (res.success) { showNotif('✅ تم تغيير الدور'); loadUsers(); }
+  else showNotif('❌ ' + res.message, 'error');
+}
+
+async function deleteUser(id) {
+  if (!confirmDialog('حذف هذا المستخدم نهائياً؟')) return;
+  const res = await API.delete('/api/users/' + id);
+  if (res.success) { showNotif('✅ تم الحذف'); loadUsers(); loadStats(); }
+  else showNotif('❌ ' + res.message, 'error');
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+</script>
+</body>
+</html>

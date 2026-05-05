@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>الأخبار والفعاليات — مدرسة الشهيد معاذ الكساسبة</title>
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+.filter-bar { display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:40px; }
+.filter-btn { padding:8px 20px;border-radius:50px;border:1.5px solid rgba(26,92,42,.2);background:#fff;font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--gray);transition:all .3s; }
+.filter-btn:hover,.filter-btn.active { background:var(--green-mid);color:#fff;border-color:var(--green-mid); }
+.news-section { background:var(--cream);padding:60px 5%; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><img src="/images/school-logo.jpg" class="logo-img-small" alt="شعار المدرسة"><div class="logo-text">مدرسة الشهيد معاذ الكساسبة<span>الثانوية للبنين | BTEC IT</span></div></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li><li><a href="/#tracks">المسارات</a></li><li><a href="/#staff">الكادر</a></li><li><a href="/contact">تواصل معنا</a></li>
+  </ul>
+  <div class="nav-auth" id="navAuth"></div>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <h1>الأخبار <span>والفعاليات</span></h1>
+  <p>تابع آخر أخبار وإنجازات مدرستنا المتميزة</p>
+  <div class="breadcrumb"><a href="/">الرئيسية</a><span>›</span><span>الأخبار</span></div>
+</div>
+
+<section class="news-section">
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-cat="الكل">الكل</button>
+    <button class="filter-btn" data-cat="إنجاز">🏆 إنجاز</button>
+    <button class="filter-btn" data-cat="فعالية">🎪 فعالية</button>
+    <button class="filter-btn" data-cat="أكاديمي">📚 أكاديمي</button>
+    <button class="filter-btn" data-cat="إعلان">📢 إعلان</button>
+  </div>
+  <div class="news-grid container" id="newsGrid"><div class="spinner"></div></div>
+  <div class="pagination" id="pagination"></div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo-area"><img src="/images/school-logo.jpg" class="logo-img-footer" alt="شعار المدرسة"><div><div style="font-weight:800;font-size:.95rem">مدرسة الشهيد معاذ الكساسبة</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">الثانوية للبنين | BTEC IT</div></div></div><p>مؤسسة تعليمية رائدة تجمع بين الأصالة والحداثة.</p></div>
+    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li><li><a href="/contact">تواصل</a></li></ul></div>
+    <div class="footer-col"><h4>معلومات</h4><ul><li><a href="tel:+96232365301">📞 +962-3-2365301</a></li><li><a href="mailto:aiyschool1@gmail.com">📧 aiyschool1@gmail.com</a></li></ul></div>
+    <div class="footer-col"><h4>تابعنا</h4><div class="social-links"><a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" class="social-btn" title="صفحة الفيسبوك"><svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a></div></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 مدرسة الشهيد الطيار معاذ الكساسبة — جميع الحقوق محفوظة</p><p style="margin-top:6px">تم التطوير بواسطة الطالب <strong style="color:var(--gold-light)">زيد طاهر المصري</strong> 💚</p></div>
+</footer>
+<button id="scrollTop">↑</button>
+<script src="/js/script.js"></script>
+<script>
+let currentPage = 1, currentCat = 'الكل';
+const colors = ['green','gold','teal','navy'];
+const icons  = ['🏆','📅','🎓','📢'];
+
+async function loadNews(page=1, cat='الكل') {
+  const grid = document.getElementById('newsGrid');
+  grid.innerHTML = '<div class="spinner"></div>';
+  currentPage = page; currentCat = cat;
+  const params = `?page=${page}&limit=9${cat !== 'الكل' ? `&category=${encodeURIComponent(cat)}` : ''}`;
+  try {
+    const res = await API.get('/api/news' + params);
+    if (!res.success || !res.news.length) {
+      grid.innerHTML = '<div class="empty-state"><span class="icon">📰</span><h3>لا توجد أخبار في هذا القسم</h3></div>';
+      document.getElementById('pagination').innerHTML = '';
+      return;
+    }
+    grid.innerHTML = res.news.map((n,i) => `
+      <div class="news-card reveal">
+        <div class="news-img ${colors[i%4]}">${n.image ? `<img src="${n.image}" alt="${n.title}">` : icons[i%4]}
+          <span class="news-date">${formatDate(n.createdAt)}</span>
+        </div>
+        <div class="news-body">
+          <span class="news-cat">${n.category}</span>
+          <h3 class="news-title">${n.title}</h3>
+          <p class="news-excerpt">${n.excerpt || n.content.substring(0,150)+'...'}</p>
+        </div>
+      </div>`).join('');
+    // pagination
+    const pag = document.getElementById('pagination');
+    pag.innerHTML = '';
+    for(let i=1;i<=res.pages;i++){
+      const btn=document.createElement('button');
+      btn.className=`page-btn${i===page?' active':''}`;
+      btn.textContent=i;
+      btn.onclick=()=>loadNews(i,currentCat);
+      pag.appendChild(btn);
+    }
+    document.querySelectorAll('.reveal').forEach(el=>{
+      const obs=new IntersectionObserver(e=>{if(e[0].isIntersecting)e[0].target.classList.add('visible');},{threshold:.1});
+      obs.observe(el);
+    });
+  } catch {
+    grid.innerHTML = '<div class="empty-state"><span class="icon">⚠️</span><h3>خطأ في تحميل الأخبار</h3></div>';
+  }
+}
+
+document.getElementById('filterBar').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  loadNews(1, e.target.dataset.cat);
+});
+
+loadNews();
+</script>
+</body>
+</html>

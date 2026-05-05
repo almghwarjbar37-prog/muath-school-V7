@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>تواصل معنا — مدرسة الشهيد معاذ الكساسبة</title>
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+.contact-section{background:var(--cream);padding:80px 5%}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:50px;max-width:1200px;margin:0 auto}
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.contact-card{background:#fff;border-radius:18px;padding:22px;display:flex;align-items:center;gap:18px;border:1px solid rgba(0,0,0,.07);transition:all .3s}
+.contact-card:hover{border-color:var(--green-light);box-shadow:0 8px 25px rgba(26,92,42,.08)}
+.contact-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--green),var(--green-mid));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.contact-text h4{font-weight:700;font-size:.9rem;color:var(--dark);margin-bottom:3px}
+.contact-text p{font-size:.85rem;color:var(--gray)}
+.contact-text a{color:var(--gray);text-decoration:none}
+.map-placeholder{background:linear-gradient(135deg,var(--green),var(--green-mid));border-radius:18px;height:200px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:3rem;cursor:pointer;text-decoration:none}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:30px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><img src="/images/school-logo.jpg" class="logo-img-small" alt="شعار المدرسة"><div class="logo-text">مدرسة الشهيد معاذ الكساسبة<span>الثانوية للبنين | BTEC IT</span></div></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li><li><a href="/#tracks">المسارات</a></li><li><a href="/#staff">الكادر</a></li><li><a href="/contact">تواصل معنا</a></li>
+  </ul>
+  <div class="nav-auth" id="navAuth"></div>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <h1>تواصل <span>معنا</span></h1>
+  <p>نحن هنا لمساعدتك في أي استفسار</p>
+  <div class="breadcrumb"><a href="/">الرئيسية</a><span>›</span><span>تواصل معنا</span></div>
+</div>
+
+<section class="contact-section">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <a href="https://maps.app.goo.gl/n66KkK5hRBxkZU4j7" target="_blank" class="contact-card" style="text-decoration:none;cursor:pointer;" title="افتح في الخريطة"><div class="contact-icon">📍</div><div class="contact-text"><h4>العنوان</h4><p>المملكة الأردنية الهاشمية — محافظة الكرك<br><small style="color:var(--green-mid)">📌 اضغط لفتح الخريطة</small></p></div></a>
+      <div class="contact-card" onclick="copyPhone()" style="cursor:pointer;" title="اضغط لنسخ الرقم"><div class="contact-icon">📞</div><div class="contact-text"><h4>الهاتف</h4><p id="phoneNum">+962-3-2365301<br><small style="color:var(--green-mid)">📋 اضغط للنسخ</small></p></div></div>
+      <a href="mailto:aiyschool1@gmail.com" class="contact-card" style="text-decoration:none;cursor:pointer;" title="إرسال بريد إلكتروني"><div class="contact-icon">📧</div><div class="contact-text"><h4>البريد الإلكتروني</h4><p>aiyschool1@gmail.com<br><small style="color:var(--green-mid)">✉️ اضغط للمراسلة</small></p></div></a>
+      <div class="contact-card"><div class="contact-icon">⏰</div><div class="contact-text"><h4>أوقات الدوام</h4><p>الأحد — الخميس: 8:45ص — 2:00م</p></div></div>
+      <a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" class="map-placeholder" style="display:flex;align-items:center;gap:10px;justify-content:center;"><svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> صفحتنا على فيسبوك</a>
+      <div style="background:#fff;border-radius:18px;padding:22px;border:1px solid rgba(0,0,0,.07)">
+        <h4 style="font-weight:700;margin-bottom:14px;color:var(--dark)">تابعنا على</h4>
+        <div class="social-links"><a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" class="social-btn" style="background:#1877F2;"><svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a></div>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <h3 style="font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:24px">📩 أرسل رسالتك</h3>
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>الاسم الكامل *</label>
+            <input type="text" id="fname" placeholder="أدخل اسمك الكامل" required>
+            <div class="form-error" id="fnameErr">الاسم مطلوب</div>
+          </div>
+          <div class="form-group">
+            <label>رقم الهاتف</label>
+            <input type="tel" id="fphone" placeholder="07XXXXXXXX" inputmode="numeric" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني *</label>
+          <input type="email" id="femail" placeholder="your@email.com" required>
+          <div class="form-error" id="femailErr">بريد إلكتروني صحيح مطلوب</div>
+        </div>
+        <div class="form-group">
+          <label>صفة المتواصل</label>
+          <select id="frole">
+            <option value="">اختر...</option>
+            <option>ولي أمر</option><option>طالب</option><option>خريج</option><option>زائر</option><option>جهة خارجية</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>موضوع الرسالة *</label>
+          <input type="text" id="fsubject" placeholder="موضوع استفسارك..." required>
+          <div class="form-error" id="fsubjectErr">الموضوع مطلوب</div>
+        </div>
+        <div class="form-group">
+          <label>الرسالة *</label>
+          <textarea id="fmessage" placeholder="اكتب رسالتك هنا..." required></textarea>
+          <div class="form-error" id="fmessageErr">الرسالة مطلوبة</div>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%" id="submitBtn">إرسال الرسالة ✉️</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo-area"><img src="/images/school-logo.jpg" class="logo-img-footer" alt="شعار المدرسة"><div><div style="font-weight:800;font-size:.95rem">مدرسة الشهيد معاذ الكساسبة</div><div style="font-size:.78rem;color:rgba(255,255,255,.5)">الثانوية للبنين | BTEC IT</div></div></div><p>مؤسسة تعليمية رائدة.</p></div>
+    <div class="footer-col"><h4>روابط</h4><ul><li><a href="/">الرئيسية</a></li><li><a href="/about">عن المدرسة</a></li><li><a href="/news">الأخبار</a></li></ul></div>
+    <div class="footer-col"><h4>معلومات</h4><ul><li><a href="tel:+96232365301">📞 +962-3-2365301</a></li><li><a href="mailto:aiyschool1@gmail.com">📧 aiyschool1@gmail.com</a></li></ul></div>
+    <div class="footer-col"><h4>تابعنا</h4><div class="social-links"><a href="https://www.facebook.com/profile.php/?id=100063649296500" target="_blank" class="social-btn" title="صفحة الفيسبوك"><svg viewBox="0 0 24 24" width="22" height="22" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a></div></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 مدرسة الشهيد الطيار معاذ الكساسبة — جميع الحقوق محفوظة</p><p style="margin-top:6px">تم التطوير بواسطة الطالب <strong style="color:var(--gold-light)">زيد طاهر المصري</strong> 💚</p></div>
+</footer>
+<button id="scrollTop">↑</button>
+<script src="/js/script.js"></script>
+<script>
+// Copy phone number
+function copyPhone() {
+  navigator.clipboard.writeText('+96232365301').then(() => {
+    showNotif('✅ تم نسخ رقم الهاتف');
+  }).catch(() => {
+    const el = document.createElement('textarea');
+    el.value = '+96232365301';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    showNotif('✅ تم نسخ رقم الهاتف');
+  });
+}
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  let valid = true;
+  const fields = [
+    { id:'fname',    errId:'fnameErr' },
+    { id:'femail',   errId:'femailErr' },
+    { id:'fsubject', errId:'fsubjectErr' },
+    { id:'fmessage', errId:'fmessageErr' }
+  ];
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    const err = document.getElementById(f.errId);
+    if (!el.value.trim()) { err.classList.add('show'); valid = false; }
+    else err.classList.remove('show');
+  });
+  const email = document.getElementById('femail').value;
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('femailErr').classList.add('show'); valid = false;
+  }
+  // Phone validation - Jordanian number
+  const phone = document.getElementById('fphone').value.trim();
+  if (phone && !/^(07[789]\d{7}|0[23589]\d{7})$/.test(phone)) {
+    showNotif('❌ رقم الهاتف غير صحيح — يجب أن يكون رقم أردني مثل 0791234567', 'error');
+    valid = false;
+  }
+  if (!valid) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = '⏳ جاري الإرسال...'; btn.disabled = true;
+
+  const res = await API.post('/api/messages', {
+    name:    document.getElementById('fname').value,
+    email:   document.getElementById('femail').value,
+    phone:   document.getElementById('fphone').value,
+    role:    document.getElementById('frole').value,
+    subject: document.getElementById('fsubject').value,
+    message: document.getElementById('fmessage').value
+  });
+
+  if (res.success) {
+    showNotif('✅ تم إرسال رسالتك بنجاح! سنتواصل معك قريباً');
+    document.getElementById('contactForm').reset();
+  } else {
+    showNotif('❌ ' + (res.message || 'خطأ في الإرسال'), 'error');
+  }
+  btn.textContent = 'إرسال الرسالة ✉️'; btn.disabled = false;
+});
+</script>
+</body>
+</html>
